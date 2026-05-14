@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: silkroad-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-directus}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-directus}
+      POSTGRES_DB: ${DB_DATABASE:-directus}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-directus} -d ${DB_DATABASE:-directus}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  directus:
+    image: directus/directus:11
+    container_name: silkroad-directus
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8055:8055"
+    volumes:
+      - ./uploads:/directus/uploads
+      - ./extensions:/directus/extensions
+      - ./snapshots:/directus/snapshots
+    environment:
+      KEY: ${DIRECTUS_KEY:-replace-me-with-a-random-uuid-key}
+      SECRET: ${DIRECTUS_SECRET:-replace-me-with-a-random-secret}
+      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE:-directus}
+      DB_USER: ${DB_USER:-directus}
+      DB_PASSWORD: ${DB_PASSWORD:-directus}
+
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "true"
+
+      RATE_LIMITER_ENABLED: "true"
+      RATE_LIMITER_STORE: memory
+
+      ASSETS_TRANSFORM_IMAGE_MAX_DIMENSION: 2400
+      ASSETS_TRANSFORM_MAX_OPERATIONS: 5
+
+      STORAGE_LOCATIONS: local
+
+      EMAIL_TRANSPORT: sendmail
+      EMAIL_FROM: ${EMAIL_FROM:-noreply@total-asset.uz}
+
+      TELEMETRY: "false"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8055/server/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

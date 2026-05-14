@@ -1,0 +1,25 @@
+# Dependencies (none in this repo, but in case scripts add them)
+node_modules
+
+# Env (NEVER commit)
+.env
+.env.local
+.env.*.local
+
+# Local Directus data
+uploads/*
+!uploads/.gitkeep
+database/
+extensions/.cache
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Logs
+*.log
+
+# Docker volumes (when bind-mounted)
+pgdata/
