@@ -370,6 +370,7 @@ async function buildSchema() {
   await ensureTranslationsField('team_members', {
     full_name: fInput(),
     position: fInput(),
+    short_bio: fTextarea(),
     biography: fWysiwyg(),
   })
 
@@ -395,6 +396,7 @@ async function buildSchema() {
   await ensureField('projects', 'period_end', fDate())
   await ensureTranslationsField('projects', {
     name: fInput(),
+    client_name: fInput(),
     summary: fTextarea(),
     description: fWysiwyg(),
   })
