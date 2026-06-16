@@ -152,6 +152,20 @@ async function ensureField(collection, field, payload) {
   return true
 }
 
+async function ensureFileRelation(collection, field) {
+  // fImage() fields need an explicit M2O relation to directus_files, otherwise
+  // the admin UI accepts an upload but can't persist it against the item.
+  try {
+    await req('GET', `/relations/${collection}/${field}`)
+    return false
+  } catch (e) {
+    if (e.status !== 403 && e.status !== 404) throw e
+  }
+  await req('POST', '/relations', { collection, field, related_collection: 'directus_files' })
+  console.log(`    ~ relation ${collection}.${field} -> directus_files`)
+  return true
+}
+
 async function ensureTranslationsField(collection, transFields) {
   // Translations interface in Directus = (1) create related collection <collection>_translations
   // (2) field on parent of type 'alias' with interface 'translations'
@@ -311,6 +325,7 @@ async function buildSchema() {
   // SITE SETTINGS (singleton)
   await ensureCollection('site_settings', { icon: 'settings', singleton: true })
   await ensureField('site_settings', 'logo', fImage())
+  await ensureFileRelation('site_settings', 'logo')
   await ensureField('site_settings', 'address', fInput())
   await ensureField('site_settings', 'phone', fInput())
   await ensureField('site_settings', 'email', fInput())
@@ -325,6 +340,7 @@ async function buildSchema() {
   // PAGE HOME (singleton)
   await ensureCollection('page_home', { icon: 'home', singleton: true })
   await ensureField('page_home', 'hero_image', fImage())
+  await ensureFileRelation('page_home', 'hero_image')
   await ensureField('page_home', 'cta_link', fInput())
   await ensureTranslationsField('page_home', {
     hero_title: fInput(),
@@ -364,6 +380,7 @@ async function buildSchema() {
   await ensureField('team_members', 'sort', { type: 'integer', meta: { interface: 'input', hidden: true }, schema: { is_nullable: true } })
   await ensureField('team_members', 'slug', fSlug())
   await ensureField('team_members', 'photo', fImage())
+  await ensureFileRelation('team_members', 'photo')
   await ensureField('team_members', 'email', fInput())
   await ensureField('team_members', 'linkedin_url', fInput())
   await ensureField('team_members', 'order', fInt())
@@ -378,6 +395,7 @@ async function buildSchema() {
   await ensureCollection('news', { icon: 'newspaper', archiveField: 'status', archiveValue: 'archived', unarchiveValue: 'draft' })
   await ensureField('news', 'slug', fSlug())
   await ensureField('news', 'cover', fImage())
+  await ensureFileRelation('news', 'cover')
   await ensureField('news', 'published_at', fDateTime())
   await ensureField('news', 'status', fStatus())
   await ensureTranslationsField('news', {
@@ -391,7 +409,9 @@ async function buildSchema() {
   await ensureField('projects', 'sort', { type: 'integer', meta: { interface: 'input', hidden: true }, schema: { is_nullable: true } })
   await ensureField('projects', 'slug', fSlug())
   await ensureField('projects', 'client_logo', fImage())
+  await ensureFileRelation('projects', 'client_logo')
   await ensureField('projects', 'hero_image', fImage())
+  await ensureFileRelation('projects', 'hero_image')
   await ensureField('projects', 'period_start', fDate())
   await ensureField('projects', 'period_end', fDate())
   await ensureTranslationsField('projects', {
