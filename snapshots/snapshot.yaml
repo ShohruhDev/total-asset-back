@@ -657,8 +657,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: news
     field: published_at
     type: timestamp
@@ -1664,8 +1664,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: page_home
     field: cta_link
     type: string
@@ -2134,8 +2134,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: projects
     field: hero_image
     type: uuid
@@ -2175,8 +2175,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: projects
     field: period_start
     type: date
@@ -3072,8 +3072,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: site_settings
     field: address
     type: string
@@ -3702,8 +3702,8 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+      foreign_key_table: directus_files
+      foreign_key_column: id
   - collection: team_members
     field: email
     type: string
@@ -4105,6 +4105,27 @@ systemFields:
     schema:
       is_indexed: true
 relations:
+  - collection: news
+    field: cover
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: news
+      many_field: cover
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: news
+      column: cover
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: news_cover_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: news_translations
     field: news_id
     related_collection: news
@@ -4231,6 +4252,27 @@ relations:
       constraint_name: page_contact_translations_languages_code_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: page_home
+    field: hero_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: page_home
+      many_field: hero_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: page_home
+      column: hero_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: page_home_hero_image_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: page_home_translations
     field: page_home_id
     related_collection: page_home
@@ -4273,6 +4315,48 @@ relations:
       constraint_name: page_home_translations_languages_code_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: projects
+    field: client_logo
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: projects
+      many_field: client_logo
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: projects
+      column: client_logo
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: projects_client_logo_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: projects
+    field: hero_image
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: projects
+      many_field: hero_image
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: projects
+      column: hero_image
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: projects_hero_image_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: projects_translations
     field: projects_id
     related_collection: projects
@@ -4357,6 +4441,27 @@ relations:
       constraint_name: services_translations_languages_code_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: site_settings
+    field: logo
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: site_settings
+      many_field: logo
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: site_settings
+      column: logo
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: site_settings_logo_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: site_settings_translations
     field: site_settings_id
     related_collection: site_settings
@@ -4399,6 +4504,27 @@ relations:
       constraint_name: site_settings_translations_languages_code_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: team_members
+    field: photo
+    related_collection: directus_files
+    meta:
+      junction_field: null
+      many_collection: team_members
+      many_field: photo
+      one_allowed_collections: null
+      one_collection: directus_files
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: team_members
+      column: photo
+      foreign_key_table: directus_files
+      foreign_key_column: id
+      constraint_name: team_members_photo_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
   - collection: team_members_translations
     field: team_members_id
     related_collection: team_members
