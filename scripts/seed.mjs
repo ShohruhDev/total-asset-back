@@ -317,6 +317,13 @@ const fStatus = () => ({
   },
   schema: { length: 32, is_nullable: false, default_value: 'draft' },
 })
+// JSON repeater (interface "list"): editable rows of simple sub-fields, no extra collection/permissions needed
+const repSub = (field, name, placeholder, width = 'half') => ({ field, name, type: 'string', meta: { field, type: 'string', interface: 'input', width, options: { placeholder } } })
+const fRepeater = (addLabel, fields, note) => ({
+  type: 'json',
+  meta: { interface: 'list', special: ['cast-json'], note, options: { addLabel, fields } },
+  schema: { is_nullable: true },
+})
 
 // ---------- SCHEMA ----------
 async function buildSchema() {
@@ -342,10 +349,28 @@ async function buildSchema() {
   await ensureField('page_home', 'hero_image', fImage())
   await ensureFileRelation('page_home', 'hero_image')
   await ensureField('page_home', 'cta_link', fInput())
+  await ensureField('page_home', 'partners', fRepeater(
+    'Добавить партнёра',
+    [repSub('name', 'Название', 'Например: Toyota Tsusho', 'full')],
+    'Партнёры в бегущей строке на главной. Если список пуст — сайт покажет встроенный список.',
+  ))
+  await ensureField('page_home', 'stats', fRepeater(
+    'Добавить показатель',
+    [
+      repSub('value', 'Значение', 'Например: 20+', 'full'),
+      repSub('label_en', 'Подпись (EN)', 'Cross-border engagements'),
+      repSub('label_ru', 'Подпись (RU)', 'Трансграничных проектов'),
+    ],
+    'Цифры-достижения на главной. Если пусто — сайт покажет встроенные.',
+  ))
   await ensureTranslationsField('page_home', {
     hero_title: fInput(),
     hero_subtitle: fTextarea(),
     cta_text: fInput(),
+    hero_location: fInput({ meta: { width: 'half', note: 'Локация в первом экране главной (например: Ташкент · Venture Plaza)' } }),
+    services_heading: fInput({ meta: { note: 'Заголовок секции «Услуги» на главной' } }),
+    services_sub: fTextarea(),
+    partners_heading: fInput({ meta: { note: 'Заголовок ленты партнёров на главной' } }),
   })
 
   // PAGE ABOUT (singleton)
@@ -354,6 +379,14 @@ async function buildSchema() {
     body: fWysiwyg(),
     mission: fTextarea(),
     vision: fTextarea(),
+    hero_title: fInput({ meta: { note: 'Заголовок шапки страницы «О компании»' } }),
+    hero_subtitle: fTextarea(),
+    value1_title: fInput({ meta: { width: 'half', note: 'Ценность 1 — заголовок (блок из трёх колонок)' } }),
+    value1_body: fTextarea(),
+    value2_title: fInput({ meta: { width: 'half', note: 'Ценность 2 — заголовок' } }),
+    value2_body: fTextarea(),
+    value3_title: fInput({ meta: { width: 'half', note: 'Ценность 3 — заголовок' } }),
+    value3_body: fTextarea(),
   })
 
   // PAGE CONTACT (singleton)
@@ -492,16 +525,39 @@ async function seedContent() {
   // PAGE HOME
   await seedSingleton(
     'page_home',
-    { cta_link: '/contact' },
+    {
+      cta_link: '/contact',
+      partners: [
+        { name: 'Japan Bank for International Cooperation' },
+        { name: 'UNA MOLIYA' },
+        { name: 'Toyota Tsusho' },
+        { name: 'Terauchi Litech' },
+        { name: 'Eurus Energy Holdings' },
+      ],
+      stats: [
+        { value: '20+', label_en: 'Cross-border engagements', label_ru: 'Трансграничных проектов' },
+        { value: '3', label_en: 'Working languages', label_ru: 'Рабочих языка' },
+        { value: '12', label_en: 'Institutional partners', label_ru: 'Институциональных партнёра' },
+        { value: '8+', label_en: 'Years in the Uzbek market', label_ru: 'Лет на рынке Узбекистана' },
+      ],
+    },
     {
       hero_title: 'Strategy meets execution in Uzbekistan',
       hero_subtitle: 'A boutique consulting firm transforming complex market challenges into measurable financial success for international investors and corporate stakeholders.',
       cta_text: 'Discuss your project',
+      hero_location: 'Tashkent · Venture Plaza',
+      services_heading: 'Institutional discipline. Local fluency.',
+      services_sub: 'One mandate: turn international intent into measurable, on-the-ground results.',
+      partners_heading: 'Selected institutional partners',
     },
     {
       hero_title: 'Стратегия и исполнение в Узбекистане',
       hero_subtitle: 'Бутиковая консалтинговая фирма, превращающая сложные рыночные задачи в измеримый финансовый успех для международных инвесторов и корпоративных партнёров.',
       cta_text: 'Обсудить проект',
+      hero_location: 'Ташкент · Venture Plaza',
+      services_heading: 'Институциональная дисциплина. Локальная экспертиза.',
+      services_sub: 'Наша цель — превратить международные намерения в измеримый результат на местах.',
+      partners_heading: 'Избранные институциональные партнёры',
     },
   )
 
@@ -513,11 +569,27 @@ async function seedContent() {
       body: '<p>Total Asset Silk Road is a boutique consulting firm operating at the intersection of strategic intent and operational reality in Uzbekistan. We specialize in transforming complex market challenges into measurable financial success for international investors and corporate stakeholders.</p><p>By bridging the gap between foreign objectives and local execution, we ensure every project is delivered with institutional-grade discipline and strategic foresight.</p>',
       mission: 'Deliver institutional-grade strategic and financial advisory that transforms foreign capital intent into measurable on-the-ground results in Uzbekistan.',
       vision: 'Become the trusted bridge between international investors and the Uzbek market — defined by analytical rigor, regulatory fluency, and disciplined execution.',
+      hero_title: 'Total Asset Silk Road',
+      hero_subtitle: 'Financial consulting at the intersection of strategy and execution in Uzbekistan.',
+      value1_title: 'Institutional discipline',
+      value1_body: 'IFRS, audit-ready reporting, governance frameworks built for sovereign-level scrutiny.',
+      value2_title: 'Local fluency',
+      value2_body: 'Direct lines with regulators and public stakeholders. Cultural literacy that compresses execution time.',
+      value3_title: 'Outcome focus',
+      value3_body: 'We measure success in delivered milestones and unblocked capital — not slides per week.',
     },
     {
       body: '<p>Total Asset Silk Road — бутиковая консалтинговая фирма, работающая на стыке стратегических намерений и операционной реальности в Узбекистане. Мы специализируемся на превращении сложных рыночных задач в измеримый финансовый успех для международных инвесторов и корпоративных партнёров.</p><p>Соединяя международные цели и локальное исполнение, мы обеспечиваем дисциплину институционального уровня и стратегическую перспективу в каждом проекте.</p>',
       mission: 'Оказывать стратегический и финансовый консалтинг институционального уровня, превращающий намерения иностранного капитала в измеримые результаты на узбекском рынке.',
       vision: 'Стать доверенным мостом между международными инвесторами и узбекским рынком — за счёт аналитической строгости, знания регуляторной среды и дисциплины исполнения.',
+      hero_title: 'Total Asset Silk Road',
+      hero_subtitle: 'Финансовый консалтинг на стыке стратегии и реализации в Узбекистане.',
+      value1_title: 'Институциональная дисциплина',
+      value1_body: 'МСФО, отчётность под аудит, корпоративное управление, выдерживающее проверку на суверенном уровне.',
+      value2_title: 'Локальная экспертиза',
+      value2_body: 'Прямой контакт с регуляторами и публичными стейкхолдерами. Понимание контекста, ускоряющее реализацию.',
+      value3_title: 'Ориентация на результат',
+      value3_body: 'Мы измеряем успех закрытыми этапами и привлечённым капиталом — а не количеством слайдов в неделю.',
     },
   )
 

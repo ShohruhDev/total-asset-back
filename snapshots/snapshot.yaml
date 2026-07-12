@@ -1318,6 +1318,326 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: page_about_translations
+    field: hero_title
+    type: string
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: hero_title
+      group: null
+      hidden: false
+      interface: input
+      note: Заголовок шапки страницы «О компании»
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: hero_title
+      table: page_about_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: hero_subtitle
+    type: text
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: hero_subtitle
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: Подзаголовок шапки страницы «О компании»
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: hero_subtitle
+      table: page_about_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value1_title
+    type: string
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value1_title
+      group: null
+      hidden: false
+      interface: input
+      note: Ценность 1 — заголовок (блок из трёх колонок внизу страницы)
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value1_title
+      table: page_about_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value1_body
+    type: text
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value1_body
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: Ценность 1 — текст
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value1_body
+      table: page_about_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value2_title
+    type: string
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value2_title
+      group: null
+      hidden: false
+      interface: input
+      note: Ценность 2 — заголовок (блок из трёх колонок внизу страницы)
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 11
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value2_title
+      table: page_about_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value2_body
+    type: text
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value2_body
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: Ценность 2 — текст
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 12
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value2_body
+      table: page_about_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value3_title
+    type: string
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value3_title
+      group: null
+      hidden: false
+      interface: input
+      note: Ценность 3 — заголовок (блок из трёх колонок внизу страницы)
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 13
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value3_title
+      table: page_about_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_about_translations
+    field: value3_body
+    type: text
+    meta:
+      collection: page_about_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: value3_body
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: Ценность 3 — текст
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 14
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: value3_body
+      table: page_about_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: page_contact
     field: id
     type: integer
@@ -1731,6 +2051,136 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: page_home
+    field: partners
+    type: json
+    meta:
+      collection: page_home
+      conditions: null
+      display: null
+      display_options: null
+      field: partners
+      group: null
+      hidden: false
+      interface: list
+      note: >-
+        Партнёры в бегущей строке на главной. Если список пуст — сайт покажет
+        встроенный список.
+      options:
+        addLabel: Добавить партнёра
+        fields:
+          - field: name
+            meta:
+              field: name
+              interface: input
+              options:
+                placeholder: 'Например: Toyota Tsusho'
+              type: string
+              width: full
+            name: Название
+            type: string
+      readonly: false
+      required: false
+      searchable: true
+      sort: 5
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: partners
+      table: page_home
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_home
+    field: stats
+    type: json
+    meta:
+      collection: page_home
+      conditions: null
+      display: null
+      display_options: null
+      field: stats
+      group: null
+      hidden: false
+      interface: list
+      note: >-
+        Цифры-достижения на главной (например 20+ / Cross-border engagements).
+        Если пусто — сайт покажет встроенные.
+      options:
+        addLabel: Добавить показатель
+        fields:
+          - field: value
+            meta:
+              field: value
+              interface: input
+              options:
+                placeholder: 'Например: 20+'
+              type: string
+              width: full
+            name: Значение
+            type: string
+          - field: label_en
+            meta:
+              field: label_en
+              interface: input
+              options:
+                placeholder: Cross-border engagements
+              type: string
+              width: half
+            name: Подпись (EN)
+            type: string
+          - field: label_ru
+            meta:
+              field: label_ru
+              interface: input
+              options:
+                placeholder: Трансграничных проектов
+              type: string
+              width: half
+            name: Подпись (RU)
+            type: string
+      readonly: false
+      required: false
+      searchable: true
+      sort: 6
+      special:
+        - cast-json
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: stats
+      table: page_home
+      data_type: json
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: page_home_translations
     field: id
     type: integer
@@ -1958,6 +2408,166 @@ fields:
       width: full
     schema:
       name: cta_text
+      table: page_home_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_home_translations
+    field: hero_location
+    type: string
+    meta:
+      collection: page_home_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: hero_location
+      group: null
+      hidden: false
+      interface: input
+      note: 'Локация в первом экране главной (например: Ташкент · Venture Plaza)'
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: hero_location
+      table: page_home_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_home_translations
+    field: services_heading
+    type: string
+    meta:
+      collection: page_home_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: services_heading
+      group: null
+      hidden: false
+      interface: input
+      note: Заголовок секции «Услуги» на главной
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 8
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: services_heading
+      table: page_home_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_home_translations
+    field: services_sub
+    type: text
+    meta:
+      collection: page_home_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: services_sub
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: Подзаголовок секции «Услуги» на главной
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 9
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: services_sub
+      table: page_home_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: page_home_translations
+    field: partners_heading
+    type: string
+    meta:
+      collection: page_home_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: partners_heading
+      group: null
+      hidden: false
+      interface: input
+      note: Заголовок ленты партнёров на главной
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: partners_heading
       table: page_home_translations
       data_type: character varying
       default_value: null
@@ -2513,6 +3123,46 @@ fields:
       data_type: text
       default_value: null
       max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: projects_translations
+    field: client_name
+    type: string
+    meta:
+      collection: projects_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: client_name
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: client_name
+      table: projects_translations
+      data_type: character varying
+      default_value: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -4076,6 +4726,46 @@ fields:
       width: full
     schema:
       name: biography
+      table: team_members_translations
+      data_type: text
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: team_members_translations
+    field: short_bio
+    type: text
+    meta:
+      collection: team_members_translations
+      conditions: null
+      display: null
+      display_options: null
+      field: short_bio
+      group: null
+      hidden: false
+      interface: input-multiline
+      note: null
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: short_bio
       table: team_members_translations
       data_type: text
       default_value: null
