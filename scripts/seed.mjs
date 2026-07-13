@@ -300,6 +300,30 @@ async function ensurePublicPermissions(collections) {
   }
 }
 
+async function ensurePublicCreatePermission(collection, fields) {
+  console.log(`\n📌 Public create permission: ${collection}`)
+  const policyId = await getPublicPolicyId()
+  const existing = await req(
+    'GET',
+    `/permissions?filter[policy][_eq]=${policyId}&limit=-1`,
+  )
+  const cur = existing.find(p => p.collection === collection && p.action === 'create')
+  if (cur) {
+    console.log(`  · ${collection}:create exists`)
+    return
+  }
+  await req('POST', '/permissions', {
+    policy: policyId,
+    collection,
+    action: 'create',
+    permissions: {},
+    validation: {},
+    presets: null,
+    fields,
+  })
+  console.log(`  ✓ ${collection}:create granted`)
+}
+
 // ---------- TYPED FIELD HELPERS ----------
 const fInput = (opts = {}) => ({ type: 'string', meta: { interface: 'input', ...opts.meta }, schema: { length: opts.length || 255, is_nullable: opts.required ? false : true } })
 const fTextarea = () => ({ type: 'text', meta: { interface: 'input-multiline' }, schema: { is_nullable: true } })
@@ -435,6 +459,26 @@ async function buildSchema() {
     title: fInput(),
     excerpt: fTextarea(),
     body: fWysiwyg(),
+  })
+
+  // CONTACT SUBMISSIONS (inbox for the contact form — no public read!)
+  await ensureCollection('contact_submissions', { icon: 'mail' })
+  await ensureField('contact_submissions', 'status', {
+    type: 'string',
+    meta: {
+      interface: 'select-dropdown',
+      options: { choices: [{ text: 'New', value: 'new' }, { text: 'Processed', value: 'processed' }] },
+    },
+    schema: { length: 32, is_nullable: false, default_value: 'new' },
+  })
+  await ensureField('contact_submissions', 'name', fInput())
+  await ensureField('contact_submissions', 'email', fInput())
+  await ensureField('contact_submissions', 'company', fInput())
+  await ensureField('contact_submissions', 'message', fTextarea())
+  await ensureField('contact_submissions', 'date_created', {
+    type: 'timestamp',
+    meta: { interface: 'datetime', readonly: true, special: ['date-created'], display: 'datetime', display_options: { relative: true } },
+    schema: { is_nullable: true },
   })
 
   // PROJECTS
@@ -689,6 +733,8 @@ async function main() {
     'projects', 'projects_translations',
     'languages',
   ])
+  // Contact form writes directly (via the Nuxt server route) — create only, no read.
+  await ensurePublicCreatePermission('contact_submissions', ['name', 'email', 'company', 'message'])
   await seedContent()
   console.log('\n✅ Seed complete')
 }
