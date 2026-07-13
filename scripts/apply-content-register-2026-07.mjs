@@ -317,9 +317,14 @@ async function applyProjects() {
     for (const tr of p.translations) {
       const w = wanted[tr.languages_code]
       if (!w) continue
-      await req('PATCH', `/items/projects_translations/${tr.id}`, w)
+      // The approved wording replaces BOTH the card summary and the detail-page
+      // body — the old descriptions carried the exact claims the register removes.
+      await req('PATCH', `/items/projects_translations/${tr.id}`, {
+        ...w,
+        description: `<p>${w.summary}</p>`,
+      })
     }
-    console.log(`  ✓ ${p.slug}`)
+    console.log(`  ✓ ${p.slug} (summary + page description)`)
   }
 }
 
