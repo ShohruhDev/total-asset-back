@@ -81,7 +81,7 @@ const PUBLIC_READ = {
     fields: ['id', 'slug', 'photo', 'email', 'linkedin_url', 'order', 'translations'],
     filter: { status: { _eq: 'published' } },
   },
-  team_members_translations: { fields: ['id', 'languages_code', 'position', 'biography', 'short_bio'] },
+  team_members_translations: { fields: ['id', 'languages_code', 'full_name', 'position', 'biography', 'short_bio'] },
   news: {
     fields: ['id', 'slug', 'cover', 'published_at', 'status', 'translations'],
     filter: { status: { _eq: 'published' } },
