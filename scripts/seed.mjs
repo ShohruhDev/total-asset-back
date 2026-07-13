@@ -475,6 +475,13 @@ async function buildSchema() {
   await ensureField('contact_submissions', 'email', fInput())
   await ensureField('contact_submissions', 'company', fInput())
   await ensureField('contact_submissions', 'message', fTextarea())
+  await ensureField('contact_submissions', 'support_area', fInput({ meta: { note: 'Направление поддержки (из формы)' } }))
+  await ensureField('contact_submissions', 'preferred_contact', fInput({ length: 32, meta: { note: 'Предпочтительный способ связи' } }))
+  await ensureField('contact_submissions', 'language', fInput({ length: 8, meta: { note: 'Язык сайта при отправке' } }))
+  await ensureField('contact_submissions', 'consent_version', fInput({ length: 100, meta: { note: 'Версия Политики конфиденциальности, с которой согласился отправитель' } }))
+  await ensureField('contact_submissions', 'assignee', fInput({ meta: { note: 'Ответственный за обращение' } }))
+  await ensureField('contact_submissions', 'response_date', fDate())
+  await ensureField('contact_submissions', 'retention_date', fDate())
   await ensureField('contact_submissions', 'date_created', {
     type: 'timestamp',
     meta: { interface: 'datetime', readonly: true, special: ['date-created'], display: 'datetime', display_options: { relative: true } },
@@ -558,7 +565,7 @@ async function seedContent() {
   await seedSingleton(
     'site_settings',
     {
-      address: '56A Abdulla Kahhar Street, Venture Plaza Business Center, Tashkent, Uzbekistan',
+      address: '56A Abdulla Kahhar Street, Ventum Plaza Business Center, Tashkent, Uzbekistan',
       phone: '+998 55 511-33-32',
       email: 'info@total-asset.uz',
     },
@@ -734,7 +741,7 @@ async function main() {
     'languages',
   ])
   // Contact form writes directly (via the Nuxt server route) — create only, no read.
-  await ensurePublicCreatePermission('contact_submissions', ['name', 'email', 'company', 'message'])
+  await ensurePublicCreatePermission('contact_submissions', ['name', 'email', 'company', 'message', 'support_area', 'preferred_contact', 'language', 'consent_version'])
   await seedContent()
   console.log('\n✅ Seed complete')
 }

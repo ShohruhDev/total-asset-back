@@ -11,12 +11,14 @@ collections:
       collapse: open
       collection: contact_submissions
       color: null
-      display_template: null
+      display_template: '{{name}} — {{support_area}}'
       group: null
       hidden: false
-      icon: mail
+      icon: inbox
       item_duplication_fields: null
-      note: null
+      note: >-
+        Обращения с контактной формы сайта. Заявки создаются автоматически — не
+        редактируйте поля отправителя.
       preview_url: null
       singleton: false
       sort: null
@@ -476,42 +478,38 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: contact_submissions
-    field: status
-    type: string
+    field: date_created
+    type: timestamp
     meta:
       collection: contact_submissions
       conditions: null
       display: null
       display_options: null
-      field: status
+      field: date_created
       group: null
       hidden: false
-      interface: select-dropdown
-      note: null
-      options:
-        choices:
-          - text: New
-            value: new
-          - text: Processed
-            value: processed
-      readonly: false
+      interface: datetime
+      note: Дата поступления
+      options: null
+      readonly: true
       required: false
       searchable: true
       sort: 2
-      special: null
+      special:
+        - date-created
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: status
+      name: date_created
       table: contact_submissions
-      data_type: character varying
-      default_value: new
-      max_length: 255
+      data_type: timestamp with time zone
+      default_value: null
+      max_length: null
       numeric_precision: null
       numeric_scale: null
-      is_nullable: false
+      is_nullable: true
       is_unique: false
       is_indexed: false
       is_primary_key: false
@@ -532,9 +530,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Имя отправителя
       options: null
-      readonly: false
+      readonly: true
       required: false
       searchable: true
       sort: 3
@@ -542,7 +540,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
       name: name
       table: contact_submissions
@@ -572,9 +570,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Email отправителя
       options: null
-      readonly: false
+      readonly: true
       required: false
       searchable: true
       sort: 4
@@ -582,7 +580,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
       name: email
       table: contact_submissions
@@ -612,9 +610,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Компания
       options: null
-      readonly: false
+      readonly: true
       required: false
       searchable: true
       sort: 5
@@ -622,9 +620,89 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
       name: company
+      table: contact_submissions
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: support_area
+    type: string
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: support_area
+      group: null
+      hidden: false
+      interface: input
+      note: Направление поддержки (из формы)
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 6
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: support_area
+      table: contact_submissions
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: preferred_contact
+    type: string
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: preferred_contact
+      group: null
+      hidden: false
+      interface: input
+      note: Предпочтительный способ связи
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: preferred_contact
       table: contact_submissions
       data_type: character varying
       default_value: null
@@ -652,12 +730,12 @@ fields:
       group: null
       hidden: false
       interface: input-multiline
-      note: null
+      note: Текст обращения
       options: null
-      readonly: false
+      readonly: true
       required: false
       searchable: true
-      sort: 6
+      sort: 8
       special: null
       translations: null
       validation: null
@@ -681,34 +759,243 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: contact_submissions
-    field: date_created
-    type: timestamp
+    field: language
+    type: string
     meta:
       collection: contact_submissions
       conditions: null
-      display: datetime
-      display_options:
-        relative: true
-      field: date_created
+      display: null
+      display_options: null
+      field: language
       group: null
       hidden: false
-      interface: datetime
-      note: null
+      interface: input
+      note: Язык сайта при отправке
       options: null
       readonly: true
       required: false
       searchable: true
-      sort: 7
-      special:
-        - date-created
+      sort: 9
+      special: null
       translations: null
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
-      name: date_created
+      name: language
       table: contact_submissions
-      data_type: timestamp with time zone
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: consent_version
+    type: string
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: consent_version
+      group: null
+      hidden: false
+      interface: input
+      note: Версия Политики конфиденциальности, с которой согласился отправитель
+      options: null
+      readonly: true
+      required: false
+      searchable: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: consent_version
+      table: contact_submissions
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: status
+    type: string
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: Статус обработки обращения
+      options:
+        choices:
+          - text: Новое
+            value: new
+          - text: В работе
+            value: in_progress
+          - text: Отвечено
+            value: answered
+          - text: Архив
+            value: archived
+      readonly: false
+      required: false
+      searchable: true
+      sort: 11
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: status
+      table: contact_submissions
+      data_type: character varying
+      default_value: new
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: false
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: assignee
+    type: string
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: assignee
+      group: null
+      hidden: false
+      interface: input
+      note: Ответственный за обращение
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 12
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: assignee
+      table: contact_submissions
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: response_date
+    type: date
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: response_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: Дата ответа
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 13
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: response_date
+      table: contact_submissions
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_indexed: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: contact_submissions
+    field: retention_date
+    type: date
+    meta:
+      collection: contact_submissions
+      conditions: null
+      display: null
+      display_options: null
+      field: retention_date
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Дата, после которой запись подлежит удалению (до 3 лет с даты
+        поступления)
+      options: null
+      readonly: false
+      required: false
+      searchable: true
+      sort: 14
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: retention_date
+      table: contact_submissions
+      data_type: date
       default_value: null
       max_length: null
       numeric_precision: null
