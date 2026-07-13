@@ -349,6 +349,21 @@ const fRepeater = (addLabel, fields, note) => ({
   schema: { is_nullable: true },
 })
 
+const fWorkflowStatus = () => ({
+  type: 'string',
+  meta: {
+    interface: 'select-dropdown',
+    width: 'half',
+    note: 'Публикация: черновики и архив не видны на сайте. Публикует Reviewer/Administrator.',
+    options: { choices: [
+      { text: 'Черновик', value: 'draft' },
+      { text: 'На проверке', value: 'review' },
+      { text: 'Опубликовано', value: 'published' },
+      { text: 'Архив', value: 'archived' },
+    ] },
+  },
+  schema: { length: 32, is_nullable: false, default_value: 'draft' },
+})
 // ---------- SCHEMA ----------
 async function buildSchema() {
   console.log('\n📌 Collections')
@@ -375,7 +390,11 @@ async function buildSchema() {
   await ensureField('page_home', 'cta_link', fInput())
   await ensureField('page_home', 'partners', fRepeater(
     'Добавить партнёра',
-    [repSub('name', 'Название', 'Например: Toyota Tsusho', 'full')],
+    [
+      repSub('name', 'Название', 'Например: Toyota Tsusho', 'full'),
+      { field: 'published', name: 'Показывать на сайте', type: 'boolean', meta: { field: 'published', type: 'boolean', interface: 'boolean', width: 'half' } },
+      repSub('evidence', 'Подтверждение (ссылка/документ)', 'Договор, письмо-разрешение…'),
+    ],
     'Партнёры в бегущей строке на главной. Если список пуст — сайт покажет встроенный список.',
   ))
   await ensureField('page_home', 'stats', fRepeater(
@@ -384,6 +403,8 @@ async function buildSchema() {
       repSub('value', 'Значение', 'Например: 20+', 'full'),
       repSub('label_en', 'Подпись (EN)', 'Cross-border engagements'),
       repSub('label_ru', 'Подпись (RU)', 'Трансграничных проектов'),
+      { field: 'published', name: 'Показывать на сайте', type: 'boolean', meta: { field: 'published', type: 'boolean', interface: 'boolean', width: 'half' } },
+      repSub('evidence', 'Подтверждение показателя', 'Источник цифры…'),
     ],
     'Цифры-достижения на главной. Если пусто — сайт покажет встроенные.',
   ))
@@ -424,6 +445,7 @@ async function buildSchema() {
   await ensureCollection('services', { icon: 'work', sortField: 'sort' })
   await ensureField('services', 'sort', { type: 'integer', meta: { interface: 'input', hidden: true }, schema: { is_nullable: true } })
   await ensureField('services', 'slug', fSlug())
+  await ensureField('services', 'status', fWorkflowStatus())
   await ensureField('services', 'icon', fInput())
   await ensureField('services', 'order', fInt())
   await ensureTranslationsField('services', {
@@ -436,6 +458,7 @@ async function buildSchema() {
   await ensureCollection('team_members', { icon: 'group', sortField: 'sort' })
   await ensureField('team_members', 'sort', { type: 'integer', meta: { interface: 'input', hidden: true }, schema: { is_nullable: true } })
   await ensureField('team_members', 'slug', fSlug())
+  await ensureField('team_members', 'status', fWorkflowStatus())
   await ensureField('team_members', 'photo', fImage())
   await ensureFileRelation('team_members', 'photo')
   await ensureField('team_members', 'email', fInput())
@@ -492,6 +515,7 @@ async function buildSchema() {
   await ensureCollection('projects', { icon: 'business', sortField: 'sort' })
   await ensureField('projects', 'sort', { type: 'integer', meta: { interface: 'input', hidden: true }, schema: { is_nullable: true } })
   await ensureField('projects', 'slug', fSlug())
+  await ensureField('projects', 'status', fWorkflowStatus())
   await ensureField('projects', 'client_logo', fImage())
   await ensureFileRelation('projects', 'client_logo')
   await ensureField('projects', 'hero_image', fImage())
